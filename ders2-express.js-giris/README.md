@@ -8,8 +8,7 @@
         6) Also if you want to faster it you can add new script tp package.json > "scripts" > "server": "nodemon index.js" (server = you can change name)
         7) If you want to start project you need to write "npm run server"
 
-
             Warnings:
         1) You can take this error: ERR_SSL_PROTOCOL_ERROR > localhost geçersiz bir yanıt gönderdi.
         You need to check your http protokol. It was https so it was wrong. Also check localhost port! Simple example: http://localhost:5000/
-
+        2) DO NOT FORGET npm i to terminal
