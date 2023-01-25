@@ -6,28 +6,12 @@ router.get('/', (req, res) => {
 });
 
 let next_id = 4;
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
     let new_actor = req.body;
     new_actor.id = next_id;
-
-    if (!new_actor.name) {
-        //Error Handling
-        next({
-            statusCode: 400,
-            errorMessage: "You need to add data if you want to add actor!"
-        });
-    } else if (new_actor.name && !new_actor.movies || !new_actor.name && new_actor.movies) {  //ismi var ama filmler yoksa
-        next({
-            statusCode: 400,
-            errorMessage: "missing data if you want to add actor!"
-        });
-    } else {
-        next_id++;
-        data.push(new_actor);
-        res.status(201).json(new_actor);
-    }
-
-
+    next_id++;
+    data.push(new_actor);
+    res.status(201).json(new_actor);
 });
 
 router.get('/:id', (req, res) => {
