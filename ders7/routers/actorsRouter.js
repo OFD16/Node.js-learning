@@ -14,27 +14,118 @@ router.get('/', (req, res) => {
     });
 });
 
-let next_id = 4;
-router.post('/', (req, res) => {
-    let new_actor = req.body;
-    new_actor.id = next_id;
-    next_id++;
-    data.push(new_actor);
-    res.status(201).json(new_actor);
-});
+//errorhandling hatalı
+router.post('/', (req, res, next) => {
+    const newActor = req.body;
 
-router.get('/:id', (req, res) => {
-    //console.log("req.body", req.body);
-    const { id } = req.params;
-    const actor = data.find((actor) => actor.id === parseInt(id));
-
-    if (actor) {
-        res.status(200).json(actor);
+    if (!newActor.name) {
+        next({
+            statusCode: 400,
+            errorMessage: "You need to add name for adding actor!",
+        });
     } else {
-        res.status(404).send("There is no result with you want to reach:...");
+        actors.addActor(newActor)
+            .then((added) => {
+                console.log('added : ', added);
+                res.status(201).json(added);
+            })
+            .catch(
+                (error) => {
+                    //console.log('error : ', error);
+                    next({
+                        statusCode: 500,
+                        errorMessage: "Failed when tryign adding actor!",
+                        error,
+                    });
+                }
+            );
     }
 });
 
+//errorhandling hatalı
+//put ile patch arasındaki farkı put kullanırsanız bütün değerleri göndermeniz gerekir ama path kullanırsanız sadece değiştirmek istediğiniz değeri gönderirseniz yeterlidir
+router.patch('/:id', (req, res, next) => {
+    const { id } = req.params;
+    const updatedActor = req.body;
+
+    if (!updatedActor.name) {
+        next({ statusCode: 400, errorMessage: "Actor name cannot be null!" })
+    } else {
+        actors.updateActor(updatedActor, id)
+            .then(updated => {
+                res.status(200).json(updated);
+            }).catch((error) => {
+                next({
+                    statusCode: 500,
+                    errorMessage: "aktör düzenlenirken hata oluştu!",
+                    error,
+                })
+            })
+    }
+
+
+});
+
+//errorhandling hatalı
+router.delete('/:id', (req, res, next) => {
+    const { id } = req.params;
+    //veritabanında bu id ye sahip bir actor varmı checklemek gerekiyor
+
+    actors.getActorByID(id).then(
+        (isExist) => {
+            actors.deleteActor(id) // id ye ister bu id yi ister silinecek aktörün idsini vereiblirsin birşey değişmiyor
+                .then((deleted) => {
+                    if (deleted) {
+                        res.status(204).end();
+                    } else {
+                        next({
+                            statusCode: 400,
+                            errorMessage: "silmeye çalıştığınız actor bulunamadı!",
+                            error,
+                        });
+                    }
+                }).catch((error) => {
+                    next({
+                        statusCode: 500,
+                        errorMessage: "aktör silinirken hata oluştu.",
+                        error,
+                    });
+                })
+        }
+    ).catch((error) => {
+        next({
+            statusCode: 500,
+            errorMessage: "aktör silinirken hata oluştu.!",
+            error,
+        })
+    })
+});
+
+//errorhandling hatalı
+router.get('/:id', (req, res, next) => {
+    const { id } = req.params;
+
+    actors.getActorByID(id).then(
+        (actor) => {
+            if (actor) {
+                res.status(200).json(actor);
+            } else {
+                next({
+                    statusCode: 400,
+                    errorMessage: "actor bulunamadı",
+                });
+            }
+        }
+    ).catch((error) => {
+        next({
+            statusCode: 500,
+            errorMessage: "actor bulunurken hata oluştu",
+            error,
+        });
+    })
+});
+
+//static data get ile put delete
 router.delete('/:id', (req, res) => {
     const delete_actor_id = req.params.id;
     const delete_actor = data.find(
@@ -50,7 +141,17 @@ router.delete('/:id', (req, res) => {
             .json({ errorMessage: "Couldn't find you tryign to delete actor" });
     }
 });
+router.get('/:id', (req, res) => {
+    //console.log("req.body", req.body);
+    const { id } = req.params;
+    const actor = data.find((actor) => actor.id === parseInt(id));
 
+    if (actor) {
+        res.status(200).json(actor);
+    } else {
+        res.status(404).send("There is no result with you want to reach:...");
+    }
+});
 router.put('/:id', (req, res) => {
     let update_actor_id = req.params.id;
     let update_actor_body = req.body;

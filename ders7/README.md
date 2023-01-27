@@ -14,7 +14,7 @@
         2) DO NOT FORGET npm i to terminal
         3)When you need to install your knew package to global. You need to write to termianl this command:
         npm i -g knex
-        
+        3)Error: Cannot find module 'C:\Users\CABBAR\Desktop\Node.js-learning\ders7\server' >>> npm run server
 
 
 
@@ -33,3 +33,7 @@
     1) 'knex seed:make 01_actor_add' this command will be create seed file
     2) 'knex seed:run' this command running seed and adding veriables to database
     3) SELECT movie.*, actor.* FROM actor JOIN movie ON actor.id = movie.id; very hard to understand this command.
+
+
+
+    /////////THIS PROJECT HAS ERROR HANDLING PROBLEMS/////////
