@@ -1,8 +1,17 @@
 const router = require('express').Router();
 let data = require('../data.js');
+const actors = require('../data/data-model');
 
 router.get('/', (req, res) => {
-    res.status(200).json(data);
+    actors.getActors().then(actors => {
+        res.status(200).json(actors);
+    }).catch(error => {
+        next({
+            statusCode: 500,
+            errorMessage: "Couldn't find any actor",
+            error,
+        })
+    });
 });
 
 let next_id = 4;

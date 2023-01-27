@@ -12,5 +12,8 @@ module.exports = {
         seeds: {
             directory: "./data/seeds"
         }
+    },
+    production: {
+        //api ımızı deploy ettiğimiz servis bağlantıları olucak
     }
 }
