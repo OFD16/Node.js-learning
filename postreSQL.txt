@@ -46,3 +46,6 @@ Veritabanına bağlanma:
 \c databaseName
 \c actors
 Böylece direk postrsql komutlaarıyla veritabanında oynamalar yapabiliriz.
+
+Ayrıca cloud database e bağlanmak istersen powershellde bu komut iş görür: $env:PGPASSWORD = "password"
+psql -h <host> -U <userName> <databaseName>
