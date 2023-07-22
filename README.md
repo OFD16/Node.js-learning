@@ -1,51 +1,54 @@
-		if you want to start some lesson you need to go specific lesson path.
+ # **NODE.JS Learning** 
+# Installation
+1- Clone the repository.
+2- Install the required dependencies using `npm install`.
 
-	example:
+# Usage
+1- Run the project with: `npm run server`.
+2- Access the application on `http://localhost:5000/`.
 
-			cd pathName
-			npx run server
-			
+# Getting Started
 
-			cd ders4-middleWare
-			npx run server
-			
+If you want to start a specific lesson, you need to navigate to the lesson path.
 
-                                                                    NODE.JS
+ `cd pathName` after `npx run server`
 
-        1) Creating app: npm init -y (-y it means alll questinon answers are yes)
-        2) In package.json > "scripts" > "start": "node index.js" > it means when you write to terminal npm start = (npm node index.js)
-        3) Nodemon package provides fast refresh area
-        4) When you installing nodemon pack. you need to write npm i -D nodemon (-D means you adding this package to devDependicies so when you in product version there won't be this package)
-        5) You need to start your project with "npx nodemon start"
-        6) Also if you want to faster it you can add new script tp package.json > "scripts" > "server": "nodemon index.js" (server = you can change name)
-        7) If you want to start project you need to write "npm run server"
+Example: 
+```
+cd ders4-middleWare
+npx run server
+```
 
-            Warnings:
-        1) You can take this error: ERR_SSL_PROTOCOL_ERROR > localhost geçersiz bir yanıt gönderdi.
-        You need to check your http protokol. It was https so it was wrong. Also check localhost port! Simple example: http://localhost:5000/
-        2) DO NOT FORGET npm i to terminal
-        3)When you need to install your knew package to global. You need to write to termianl this command:
-        npm i -g knex
-        3)Error: Cannot find module 'C:\Users\CABBAR\Desktop\Node.js-learning\ders7\server' >>> npm run server
-
-
+**Node.js**
+1- Creating an app: `npm init -y `(-y means all question answers are set to "yes").
+2- In package.json, under `"scripts"`, add `"start": "node index.js"`. This allows you to run npm start to execute node index.js.
+3- Nodemon package provides fast refresh during development.
+4- Install nodemon as a development dependency using: `npm i -D nodemon` (-D adds the package to devDependencies, so it won't be included in the production version).
+5- Start your project with: `npx nodemon start`.
+6- For even faster startup, add a new script into `package.json`: ` "server": "nodemon index.js" ` (you can change the name "server" to anything you prefer).
+7- To start the project, `run: npm run server`.
 
 
-                    DataTables
-        *Migration*:
-    1)creating new dataTable > knex migrate:make actor_movie_table_create
-    2)You can create that you wrote on migrate..js file with code by running 'knex migrate:up' command also knew migrate:down going back migration and knex migrate:latest starting all migrates in order.
-    3) other psql commands you can use in your root project
-        -   'psql -d actors -U admin' => connecting to database
-        -    entering password  'admin'
-        -    SELECT*FROM actor;  => printing actor table
-        -    '\q' exit from database
+**Warnings**
+- If you encounter the error  `"ERR_SSL_PROTOCOL_ERROR > localhost sent an invalid response" `, check your HTTP protocol (it should be "http" instead of "https"). 
+  Also, verify the localhost port, e.g., http://localhost:5000/.
+- Do not forget to run  `npm i ` to install dependencies.
+- To install a package globally, use: ` npm i -g knex `.
+- If you encounter the error:  `"Cannot find module 'C:\Users\{username}\root...\Node.js-learning\ders7\server'" `, try running:  `npm run server `.
 
-        *Seed*(In Develop phase we are using seeds for adding datas to database fastly):
-    1) 'knex seed:make 01_actor_add' this command will be create seed file
-    2) 'knex seed:run' this command running seed and adding veriables to database
-    3) SELECT movie.*, actor.* FROM actor JOIN movie ON actor.id = movie.id; very hard to understand this command.
+# DataTables
 
+**Migration**
+- To create a new dataTable, use:` knex migrate:make actor_movie_table_create`.
+- You can apply the migrations written in the `migrate.js` file by running: `knex migrate:up`. To undo a migration, use: `knex migrate:down`. To run all pending migrations in order, use: `knex migrate:latest`.
+- Other psql commands you can use in your root project:
+  * Connecting to the database: `psql -d actors -U admin` (enter password: "admin").
+  * Print actor table: `SELECT * FROM actor;`.
+  * Exit from the database:` \q`.
+- Seed (In Develop phase, we use seeds for adding data to the database quickly):
+  * To create a seed file, use: `knex seed:make 01_actor_add`.
+  * To run the seeds and add data to the database, use: `knex seed:run`.
+- A complicated SQL command: `SELECT movie.*, actor.* FROM actor JOIN movie ON actor.id = movie.id.` (It's hard to understand this command.)
 
-
-    /////////THIS PROJECT HAS ERROR HANDLING PROBLEMS/////////
+# Project Status
+ - This project has error handling problems.                             
