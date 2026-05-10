@@ -1,5 +1,5 @@
 win > powersheel > 
-psql -d postgres -U postgres > admin > enters
+psql -d postgres -U postgres > admin > enteraa
 
 kullanıcı oluşturma
 ilk admin kullanıcı adı sonraki şifre oluyor
